@@ -6,6 +6,8 @@ import org.junit.jupiter.api.Test;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.boot.test.context.SpringBootTest;
 
+import java.util.Arrays;
+import java.util.List;
 import java.util.stream.IntStream;
 
 import static org.junit.jupiter.api.Assertions.*;
@@ -27,6 +29,24 @@ class BoardRepositoryTest {
                     .build();
             boardRepository.save(board);
         });
+    }
+
+    @Test
+    public void testReadWithWriter() {
+        Object result = boardRepository.getBoardWithWriter(100L);
+        Object[] arr = (Object[]) result;
+
+        System.out.println("---------------");
+        System.out.println(Arrays.toString(arr));
+    }
+
+    @Test
+    public void testGetBoardWithReply() {
+        List<Object[]> result = boardRepository.getBoardWithReply(100L);
+
+        for (Object[] arr : result) {
+            System.out.println(Arrays.toString(arr));
+        }
     }
 
 }
