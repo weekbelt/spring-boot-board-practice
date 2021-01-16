@@ -1,5 +1,6 @@
 package me.weekbelt.board.repository;
 
+import me.weekbelt.board.dto.PageRequestDTO;
 import me.weekbelt.board.entity.Board;
 import me.weekbelt.board.entity.Member;
 import org.junit.jupiter.api.Test;
@@ -12,8 +13,6 @@ import org.springframework.data.domain.Sort;
 import java.util.Arrays;
 import java.util.List;
 import java.util.stream.IntStream;
-
-import static org.junit.jupiter.api.Assertions.*;
 
 @SpringBootTest
 class BoardRepositoryTest {
@@ -69,4 +68,17 @@ class BoardRepositoryTest {
         System.out.println(Arrays.toString(arr));
     }
 
+    @Test
+    public void testSearch1() {
+        boardRepository.search1();
+    }
+
+    @Test
+    public void testSearchPage() {
+        PageRequest pageable = PageRequest.of(0, 10,
+                Sort.by("bno").descending()
+                        .and(Sort.by("title").ascending()));
+
+        Page<Object[]> result = boardRepository.searchPage("t", "1", pageable);
+    }
 }
